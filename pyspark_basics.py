@@ -111,8 +111,27 @@ from pyspark.sql.functions import countDistinct, avg, stddev
 # count the number of different values in sales
 df.select(countDistinct('Sales')).show()
 
+# average number of sales 
+df.select(avg('Sales')).show()
 
+# average number of sales with new column name
+df.select(avg('Sales').alias("Average Sales")).show()
 
+# standard deviation number of sales with new column name
+df.select(stddev('Sales').alias("Standard Deviation Sales")).show()
 
+# standard deviation number of sales with new column name
+sales = df.select(stddev('Sales').alias("Standard Deviation Sales"))
+sales.show()
 
+# decimals
+from pyspark.sql.functions import format_number
+
+sales.select(format_number('Standard Deviation Sales', 2).alias('std_sales')).show()
+
+# order data
+df.orderBy('Sales').show()
+
+# order data descending
+df.orderBy(df['Sales'].desc()).show()
 
